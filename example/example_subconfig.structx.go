@@ -2,4 +2,7 @@
 
 package example
 
-func (s *SubConfig) WithEnabled(v bool) { s.Enabled = v }
+func (s *SubConfig) WithEnabled(v bool) *SubConfig {
+	s.Enabled = v
+	return s
+}

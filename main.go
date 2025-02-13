@@ -121,6 +121,7 @@ func main() {
 				buf.WriteString("s." + name + " = v\n")
 				buf.WriteString("return s\n")
 				buf.WriteString("}\n")
+				buf.WriteString("func (s *" + s.Name + ") " + toTitle(name) + "() " + typ + "{ return s." + name + " }\n")
 			}
 			buf.WriteString("\n")
 			for name, typ := range s.Fields {

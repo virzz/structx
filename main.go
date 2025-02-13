@@ -112,12 +112,22 @@ func main() {
 			if s == nil || s.Fields == nil {
 				continue
 			}
+			// func (s *StructName) WithFieldName(v FieldType) *StructName{
+			// 	s.FieldName = v
+			// 	return s
+			// }
 			for name, typ := range s.InnerFields {
-				buf.WriteString("func (s *" + s.Name + ") With" + toTitle(name) + "(v " + typ + ") { s." + name + " = v }\n")
+				buf.WriteString("func (s *" + s.Name + ") With" + toTitle(name) + "(v " + typ + ") *" + s.Name + "{\n")
+				buf.WriteString("s." + name + " = v\n")
+				buf.WriteString("return s\n")
+				buf.WriteString("}\n")
 			}
 			buf.WriteString("\n")
 			for name, typ := range s.Fields {
-				buf.WriteString("func (s *" + s.Name + ") With" + toTitle(name) + "(v " + typ + ") { s." + name + " = v }\n")
+				buf.WriteString("func (s *" + s.Name + ") With" + toTitle(name) + "(v " + typ + ") *" + s.Name + "{\n")
+				buf.WriteString("s." + name + " = v\n")
+				buf.WriteString("return s\n")
+				buf.WriteString("}\n")
 			}
 			genName := strings.ToLower(fn[:len(fn)-len(filepath.Ext(fn))] + "_" + s.Name + ".structx.go")
 			// Generate struct methods

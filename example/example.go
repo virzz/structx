@@ -1,5 +1,6 @@
 package example
 
+//go:generate structx -struct SubConfig
 type SubConfig struct {
 	Enabled bool
 }
